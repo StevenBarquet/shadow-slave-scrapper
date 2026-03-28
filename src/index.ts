@@ -8,7 +8,7 @@ const script = {
 
 function main() {
   try {
-    script.scrap_urls();
+    script.getTenUrls();
   } catch (error) {
     console.error("Error:", error);
   }

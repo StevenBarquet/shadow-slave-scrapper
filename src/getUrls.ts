@@ -2,11 +2,13 @@
 import puppeteer from "puppeteer";
 import fs from "fs/promises";
 
-const URL_REFERENCE= 'https://devilnovels.com/esclavo-de-las-sombras/shadow-slave-chapter-246-2/116881/'
+const LAST_URL_FILE = "last_url.txt";
 const OUTPUT_FILE = "urls.txt";
 const TOTAL_URLS = 10;
 
 export async function getTenUrls() {
+  const URL_REFERENCE = (await fs.readFile(LAST_URL_FILE, "utf-8")).trim();
+
   const browser = await puppeteer.launch({
     headless: true
   });
