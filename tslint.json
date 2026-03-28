@@ -1,0 +1,14 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "no-console": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ],
+    "indent": [true, "spaces", 2],
+    "interface-name": false,
+    "radix": false
+  }
+}
