@@ -1,16 +1,11 @@
-import { getTenUrls } from "./getUrls";
-import { scrap_urls } from "./scrapper";
+import { continuousScraper } from "./scrapper";
 
-const script = {
-  getTenUrls,
-  scrap_urls,
-};
-
-function main() {
+async function main() {
   try {
-    script.getTenUrls();
+    await continuousScraper();
   } catch (error) {
     console.error("Error:", error);
+    process.exit(1);
   }
 }
 
