@@ -1,6 +1,6 @@
-import puppeteer from "puppeteer";
 import fs from "fs/promises";
 import path from "path";
+import puppeteer from "puppeteer";
 
 const URLS_FILE = "urls.txt";
 const LAST_URL_FILE = "last_url.txt";
@@ -25,7 +25,7 @@ async function readUrls(filePath: string): Promise<string[]> {
   const raw = await fs.readFile(filePath, "utf-8").catch(() => "");
   return raw
     .split(/\r?\n/)
-    .map(s => s.trim())
+    .map((s) => s.trim())
     .filter(Boolean);
 }
 
@@ -57,19 +57,21 @@ export async function scrap_urls() {
 
       const nodes = Array.from(root.querySelectorAll("h1, p"));
 
-      const lastPIndexFromEnd = [...nodes].reverse().findIndex(n => n.tagName.toLowerCase() === "p");
+      const lastPIndexFromEnd = [...nodes]
+        .reverse()
+        .findIndex((n) => n.tagName.toLowerCase() === "p");
       if (lastPIndexFromEnd !== -1) {
         const lastPIndex = nodes.length - 1 - lastPIndexFromEnd;
         nodes.splice(lastPIndex, 1);
       }
 
       const lines = nodes
-        .map(n => (n.textContent || "").trim())
+        .map((n) => (n.textContent || "").trim())
         .filter(Boolean);
 
       return {
         titleAndParagraphs: lines.join("\n\n"),
-        pageTitle: document.title || ""
+        pageTitle: document.title || "",
       };
     });
 
@@ -81,7 +83,7 @@ export async function scrap_urls() {
     if (capNumber === null || Number.isNaN(capNumber)) {
       throw new Error(
         `No pude extraer el número de capítulo desde la URL: ${url}\n` +
-          `Asegúrate de que contenga un patrón tipo "chapter-247-2/".`
+          `Asegúrate de que contenga un patrón tipo "chapter-247-2/".`,
       );
     }
 
@@ -89,7 +91,9 @@ export async function scrap_urls() {
     const outPath = path.join(OUTPUT_DIR, fileName);
 
     const header = `SOURCE: ${url}\nTITLE: ${pageTitle}\n\n`;
-    await fs.writeFile(outPath, header + titleAndParagraphs, { encoding: "utf-8" });
+    await fs.writeFile(outPath, header + titleAndParagraphs, {
+      encoding: "utf-8",
+    });
 
     lastScrapedUrl = url;
     console.log(`Guardado: ${outPath}`);
