@@ -1,9 +1,15 @@
-function sum(a: number, b: number): number {
-  return a + b;
-}
+import { getTenUrls } from "./getUrls";
+
+const script = {
+  getTenUrls,
+};
 
 function main() {
-  console.log(sum(2, 3));
+  try {
+    script.getTenUrls();
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 main();

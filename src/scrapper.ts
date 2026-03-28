@@ -1,0 +1,1 @@
+const SCRAP_URL = 'https://www.google.com/search?q=';
